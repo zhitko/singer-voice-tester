@@ -1,0 +1,4 @@
+# qmldir
+singleton Colors Colors.qml
+singleton Theme Theme.qml
+singleton Utilities Utilities.qml
