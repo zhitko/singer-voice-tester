@@ -252,7 +252,8 @@ Number</source>
     </message>
     <message>
         <location filename="Components/VoiceHeaderForm.ui.qml" line="85"/>
-        <source>Mezzo</source>
+        <source>Mezzo-soprano</source>
+        <oldsource>Mezzo</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>

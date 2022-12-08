@@ -39,6 +39,7 @@ Rectangle {
 
         Label {
             id: valueLabel1
+            visible: false
             anchors.top: parent.top
             anchors.topMargin: 5
             anchors.horizontalCenter: firstBar.horizontalCenter
@@ -60,6 +61,7 @@ Rectangle {
 
         Label {
             id: valueLabel2
+            visible: false
             anchors.top: parent.top
             anchors.topMargin: 5
             anchors.horizontalCenter: secondBar.horizontalCenter

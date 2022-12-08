@@ -1,6 +1,6 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
-import QtQuick.Shapes 1.14
+import QtQuick.Shapes 1.12
 import "Material"
 
 Item {
@@ -33,12 +33,14 @@ Item {
         anchors.verticalCenter: canvas.verticalCenter
 
         ShapePath {
+            id: path
             fillColor: targetHint.color
             fillRule: ShapePath.WindingFill
-            startX: 0; startY: 0
+            startX: targetHintShape.width / 2; startY: 4
             PathLine { x: targetHintShape.width; y: 0 }
             PathLine { x: targetHintShape.width / 2; y: targetHintShape.height / 2 }
             PathLine { x: 0; y: 0 }
+            PathLine { x: path.startX; y: path.startY }
         }
     }
 
@@ -48,11 +50,11 @@ Item {
         visible: targetHintShape.visible
 
         anchors.horizontalCenter: targetHintShape.horizontalCenter
-        anchors.bottom: targetHintShape.top
-        anchors.bottomMargin: 2
+        anchors.top: targetHintShape.bottom
+        anchors.topMargin: 5
 
         text: qsTr("Reference  Target of Singing")
-        font.pointSize: 12
+        font.pointSize: 11
         font.underline: true
         font.bold: true
         color: Theme.secondaryDark.titleColor

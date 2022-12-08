@@ -85,5 +85,6 @@
         <file>Components/Material/Utilities.qml</file>
         <file>Components/Material/Color.qml</file>
         <file>3party/chroma.js</file>
+        <file>Components/CompareCanvasForm.ui.qml</file>
     </qresource>
 </RCC>

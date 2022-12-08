@@ -82,7 +82,7 @@ ColumnLayout {
 
             VoiceHeaderTile {
                 id: mezzosoprano
-                label.text: qsTr("Mezzo")
+                label.text: qsTr("Mezzo-soprano")
                 Layout.fillWidth: true
                 Layout.preferredWidth: titleWidth
                 Layout.preferredHeight: titleHeight
