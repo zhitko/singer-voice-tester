@@ -70,7 +70,7 @@ namespace ApplicationConfig {
     }
 
     static const QString SETTINGS_VERSION_KEY = "version";
-    static const QString SETTINGS_VERSION_VALUE = "10";
+    static const QString SETTINGS_VERSION_VALUE = "11";
 
     static const int RecordingFrequency =  8000;
     static const int RecordingBitsPerSample =  16;
@@ -370,7 +370,7 @@ namespace ApplicationConfig {
              {SETTINGS_EDITABLE, SETTINGS_TRUE}
         }},
         {SETTINGS_COMPARE_MAX_X, {
-             {SETTINGS_NAME, "Permissible deviations X (Diapason)"},
+             {SETTINGS_NAME, "Permissible deviations X (Range)"},
              {SETTINGS_DESC, ""},
              {SETTINGS_VAL, "2"},
              {SETTINGS_TYPE, SETTINGS_TYPE_DOUBLE},

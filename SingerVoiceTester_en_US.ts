@@ -4,14 +4,18 @@
 <context>
     <name>Backend</name>
     <message>
-        <location filename="src/backend_files.cpp" line="41"/>
-        <location filename="src/backend_files.cpp" line="48"/>
+        <location filename="src/backend_files.cpp" line="66"/>
+        <location filename="src/backend_files.cpp" line="76"/>
         <source>Open File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/backend_files.cpp" line="43"/>
-        <location filename="src/backend_files.cpp" line="50"/>
+        <location filename="src/backend_files.cpp" line="68"/>
+        <source>Wave (*.*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/backend_files.cpp" line="78"/>
         <source>Wave (*.wav)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -19,24 +23,24 @@
 <context>
     <name>CompareCanvasForm.ui</name>
     <message>
-        <location filename="Components/CompareCanvasForm.ui.qml" line="54"/>
+        <location filename="Components/CompareCanvasForm.ui.qml" line="57"/>
         <source>Reference  Target of Singing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Components/CompareCanvasForm.ui.qml" line="82"/>
+        <location filename="Components/CompareCanvasForm.ui.qml" line="86"/>
         <source>Current
 Score</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Components/CompareCanvasForm.ui.qml" line="106"/>
+        <location filename="Components/CompareCanvasForm.ui.qml" line="111"/>
         <source>Test Serial
 Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Components/CompareCanvasForm.ui.qml" line="131"/>
+        <location filename="Components/CompareCanvasForm.ui.qml" line="136"/>
         <source>Overall Score</source>
         <translation type="unfinished"></translation>
     </message>
@@ -68,7 +72,8 @@ Number</source>
     <name>MetricsHeader</name>
     <message>
         <location filename="Components/MetricsHeader.qml" line="19"/>
-        <source>Pitch: %1 	 Diapason: %2</source>
+        <source>Pitch: %1 	 Range: %2</source>
+        <oldsource>Pitch: %1 	 Diapason: %2</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -80,7 +85,7 @@ Number</source>
     <message>
         <location filename="Components/MetricsHeader.qml" line="25"/>
         <location filename="Components/MetricsHeader.qml" line="33"/>
-        <source>Diapason: %1</source>
+        <source>Range: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -274,27 +279,27 @@ Number</source>
     <name>main</name>
     <message>
         <location filename="main.qml" line="18"/>
-        <location filename="main.qml" line="93"/>
+        <location filename="main.qml" line="94"/>
         <source>Singer Voice Tester</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="109"/>
+        <location filename="main.qml" line="110"/>
         <source>Home</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="125"/>
+        <location filename="main.qml" line="126"/>
         <source>Results History</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="141"/>
+        <location filename="main.qml" line="142"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="157"/>
+        <location filename="main.qml" line="158"/>
         <source>Privacy Policy</source>
         <translation type="unfinished"></translation>
     </message>

@@ -16,7 +16,7 @@ Page {
     CompareCanvas {
         id: compareChart
 
-        height: 300
+        height: parent.height / 2.05
         width: height
 
         anchors.top: parent.top

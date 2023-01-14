@@ -5,11 +5,13 @@
 #include <QFile>
 #include <QDateTime>
 #include <QTextStream>
+#include <QDebug>
 
 #include "backend.h"
 #include "applicationconfig.h"
 
 void cleanDataDir();
+void copyTestDataFilesForAndroid();
 
 static const QtMessageHandler QT_DEFAULT_MESSAGE_HANDLER = qInstallMessageHandler(0);
 
@@ -54,6 +56,10 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     engine.load(url);
 
+#ifdef ANDROID
+    copyTestDataFilesForAndroid();
+#endif
+
     auto result = QApplication::exec();
 
 #ifdef ANDROID
@@ -62,6 +68,62 @@ int main(int argc, char *argv[])
 
     return result;
 }
+
+#ifdef ANDROID
+#include <QtAndroid>
+
+void copyTestDataFilesForAndroid()
+{
+    const QVector<QString> permissions(
+                {"android.permission.WRITE_EXTERNAL_STORAGE",
+                 "android.permission.READ_EXTERNAL_STORAGE"}
+    );
+    for (const QString &permission : permissions) {
+        auto result = QtAndroid::checkPermission(permission);
+        if (result == QtAndroid::PermissionResult::Denied) {
+            auto resultHash = QtAndroid::requestPermissionsSync(QStringList({permission}));
+            if (resultHash[permission] == QtAndroid::PermissionResult::Denied) {
+                return;
+            }
+        }
+    }
+
+    qDebug() << "copyTestDataFilesForAndroid";
+
+    const QString src = "assets:/SingerVoiceTester";
+    qDebug() << "copyTestDataFilesForAndroid src: " << src;
+
+    const QString dst = QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).at(0) +
+            QDir::separator() + "SingerVoiceTester";
+    qDebug() << "copyTestDataFilesForAndroid dst: " << dst;
+
+    QDir srcDir(src);
+    if (!srcDir.exists())
+    {
+        qDebug() << "copyTestDataFilesForAndroid srcDir: Not Exists";
+        return;
+    }
+
+    QDir dstDir(dst);
+    if (!dstDir.exists())
+    {
+        qDebug() << "copyTestDataFilesForAndroid dstDir: Not Exists";
+        auto dstDirRes = dstDir.mkpath(dst);
+        qDebug() << "copyTestDataFilesForAndroid dstDir: " << dstDirRes;
+    }
+
+    foreach (QString f, srcDir.entryList(QDir::Files)) {
+        auto copyRes = QFile::copy(src + QDir::separator() + f, dst + QDir::separator() + f);
+        qDebug() << "copyTestDataFilesForAndroid QFile::copy f: " << f;
+        qDebug() << "copyTestDataFilesForAndroid QFile::copy copyRes: " << copyRes;
+    }
+}
+#else
+void copyTestDataFilesForAndroid()
+{
+    qDebug() << "copyTestDataFilesForAndroid - Skip";
+}
+#endif
 
 void cleanDataDir()
 {

@@ -24,6 +24,7 @@ ApplicationWindow {
 
     Component.onCompleted: {
         Bus.stackView = stackView
+        Bus.getSettings()
         Bus.goHome()
     }
 
@@ -87,7 +88,7 @@ ApplicationWindow {
             Rectangle {
                 color: Theme.primary.color
                 height: 100
-                width: parent.implicitWidth
+                width: drawer.width
                 Label {
                     anchors.centerIn: parent
                     text: qsTr("Singer Voice Tester")

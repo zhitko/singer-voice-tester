@@ -46,7 +46,7 @@ CompareCanvasForm {
         if (templateData.length !== 0) {
             root.hasValues = true
 
-            let x = templateData[4] - recordData[4]; // Diapason
+            let x = templateData[4] - recordData[4]; // Range
             let y = templateData[8] - recordData[8]; // Pitch
             console.log("CompareCanvasForm.drawResultPoints x ", x)
             console.log("CompareCanvasForm.drawResultPoints y ", y)            

@@ -16,13 +16,13 @@ MetricsHeaderForm {
         let recordData = Bus.getPitchOcavesMetrics(true)
         let templateData = Bus.getTemplateOcavesMetrics(true)
 
-        const template = qsTr("Pitch: %1 \t Diapason: %2");
+        const template = qsTr("Pitch: %1 \t Range: %2");
 
         console.log("PitchForm.showOctavesMetrics recordData ", recordData)
         console.log("PitchForm.showOctavesMetrics recordData[7] ", recordData[7])
         root.firstValue1.text = qsTr("Pitch: %1")
             .arg(recordData[8].toFixed(n))
-        root.firstValue2.text = qsTr("Diapason: %1")
+        root.firstValue2.text = qsTr("Range: %1")
             .arg(recordData[4].toFixed(n))
 
         if (templateData.length !== 0) {
@@ -30,7 +30,7 @@ MetricsHeaderForm {
             console.log("PitchForm.showOctavesMetrics templateData[7] ", templateData[7])
             root.secondValue1.text = qsTr("Pitch: %1")
                 .arg(templateData[8].toFixed(n))
-            root.secondValue2.text = qsTr("Diapason: %1")
+            root.secondValue2.text = qsTr("Range: %1")
                 .arg(templateData[4].toFixed(n))
         }
 

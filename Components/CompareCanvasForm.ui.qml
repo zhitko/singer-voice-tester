@@ -36,7 +36,8 @@ Item {
             id: path
             fillColor: targetHint.color
             fillRule: ShapePath.WindingFill
-            startX: targetHintShape.width / 2; startY: 4
+            startX: targetHintShape.width / 2
+            startY: 4
             PathLine { x: targetHintShape.width; y: 0 }
             PathLine { x: targetHintShape.width / 2; y: targetHintShape.height / 2 }
             PathLine { x: 0; y: 0 }
@@ -81,6 +82,7 @@ Item {
 
         anchors.bottom: currentMark.top
         anchors.left: currentMark.left
+        anchors.leftMargin: -currentMark.anchors.leftMargin
         text: qsTr("Current\nScore")
         font.pointSize: 14
         color: currentMark.color
@@ -105,6 +107,7 @@ Item {
 
         anchors.bottom: iteration.top
         anchors.right: iteration.right
+        anchors.rightMargin: -currentMark.anchors.leftMargin
         text: qsTr("Test Serial\nNumber")
         font.pointSize: currentMarkLabel.font.pointSize
         horizontalAlignment: "AlignRight"

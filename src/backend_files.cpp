@@ -12,14 +12,14 @@ QVariantList Backend::getWaveFilesList()
 {
     QDir dataDir(ApplicationConfig::GetFullDataPath());
     QStringList allFiles = dataDir.entryList(ApplicationConfig::WaveFileFilter, QDir::NoDotAndDotDot | QDir::Files);
-    qDebug() << "Found files: " << allFiles;
+    qDebug() << "Backend::getWaveFilesList allFiles: " << allFiles;
 
     QVariantList fileList;
 
     foreach(auto file, allFiles)
     {
         QmlFileInfo info(dataDir.absoluteFilePath(file));
-        qDebug() << "File: " << info.getName() << " : " << info.getPath();
+        qDebug() << "Backend::getWaveFilesList: " << info.getName() << " : " << info.getPath();
 
         fileList.append(QVariant::fromValue(info));
     }
@@ -29,27 +29,55 @@ QVariantList Backend::getWaveFilesList()
 
 void Backend::deleteWaveFile(QString path)
 {
-    qDebug() << "deleteWaveFile " << path;
+    qDebug() << "Backend::deleteWaveFile: " << path;
     QFile file (path.toLocal8Bit());
     file.remove();
 }
 
+#ifdef ANDROID
+#include <QtAndroid>
+bool requestAndroidExternalStoragePermissions() {
+    const QVector<QString> permissions(
+                {"android.permission.WRITE_EXTERNAL_STORAGE",
+                 "android.permission.READ_EXTERNAL_STORAGE"}
+    );
+    for (const QString &permission : permissions) {
+        auto result = QtAndroid::checkPermission(permission);
+        if (result == QtAndroid::PermissionResult::Denied) {
+            auto resultHash = QtAndroid::requestPermissionsSync(QStringList({permission}));
+            if (resultHash[permission] == QtAndroid::PermissionResult::Denied) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+#endif
+
 QString Backend::openFileDialog()
 {
 #ifdef ANDROID
-    auto fileUrl = QFileDialog::getOpenFileUrl(nullptr,
-                                tr("Open File"),
-                                ApplicationConfig::GetFullTestsPath(),
-                                tr("Wave (*.wav)"));
-    qDebug() << "openFileDialog: " << fileUrl;
-    auto fileName = fileUrl.toString();
+    const QString path = QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).at(0) +
+            QDir::separator() + "SingerVoiceTester";
+    qDebug() << "Backend::openFileDialog path: " << path;
+    QString fileName = "";
+    if (requestAndroidExternalStoragePermissions()) {
+        auto fileUrl = QFileDialog::getOpenFileUrl(nullptr,
+                                    tr("Open File"),
+                                    path,
+                                    tr("Wave (*.*)"));
+        qDebug() << "Backend::openFileDialog fileUrl: " << fileUrl;
+        fileName = fileUrl.toString();
+    }
 #else
+    const QString path = ApplicationConfig::GetFullTestsPath();
+    qDebug() << "Backend::openFileDialog path: " << path;
     auto fileName = QFileDialog::getOpenFileName(nullptr,
         tr("Open File"),
-        ApplicationConfig::GetFullTestsPath(),
+        path,
         tr("Wave (*.wav)"));
 #endif
-    qDebug() << "openFileDialog: " << fileName;
+    qDebug() << "Backend::openFileDialog: " << fileName;
 
     return fileName;
 }

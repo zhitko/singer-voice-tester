@@ -16,7 +16,7 @@ Item {
     property bool canPlayButton: true
     property bool showOpenButton: false
     property bool showOpenTemplateButton: false
-    property bool canOpenButton: !backend.isMobile()
+    property bool canOpenButton: true//!backend.isMobile()
     property bool canOpenTemplateButton: true
 
     property string currentPage: ""
@@ -161,7 +161,7 @@ Item {
         root.canRecordButton = true
         root.canOpenTemplateButton = true
         root.canPlayButton = true
-        root.canOpenButton = true && !backend.isMobile()
+        root.canOpenButton = true //&& !backend.isMobile()
     }
 
     function playRecord(playing) {

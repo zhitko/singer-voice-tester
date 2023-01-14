@@ -18,7 +18,6 @@ TrainingForm {
         Bus.showPlayButton = Bus.recordPath !== ""
         Bus.showSaveResultsButton = Bus.recordPath !== ""
         Bus.showRecordButton = true
-        Bus.showOpenButton = true && Bus.canOpenButton
 
         loadSettings()
 

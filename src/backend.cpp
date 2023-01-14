@@ -5,6 +5,8 @@
 #include <QDebug>
 #include <QGuiApplication>
 #include <QTemporaryFile>
+#include <QQmlFile>
+#include <QDataStream>
 
 #include <inton-core/include/intoncore.h>
 #include <inton-core/include/utils.h>
@@ -1116,31 +1118,37 @@ void Backend::initializeCore(bool reinit)
 
 void Backend::initializeRecordCore(const QString& path)
 {
-    qDebug() << "initializeCore: path" << path;
+    qDebug() << "Backend::initializeRecordCore: path" << path;
     if (this->path == path)
     {
-        qDebug() << "initializeCore: ok";
+        qDebug() << "Backend::initializeRecordCore: ok";
         return;
     }
-    qDebug() << "initializeCore: old path" << this->path;
+    qDebug() << "Backend::initializeRecordCore: old path" << this->path;
 
     if (!path.isEmpty())
     {
-        qDebug() << "initializeCore: initialize core" << path;
+        qDebug() << "Backend::initializeRecordCore: initialize core" << path;
         this->initializeCore();
-        if (path.startsWith(":"))
+        if (path.startsWith("content:"))
         {
-            QFile qfile(path);
+            QFile qfile(QQmlFile::urlToLocalFileOrQrc(path));
+            if (!qfile.open(QFile::ReadOnly)) {
+                qDebug() << "Backend::initializeRecordCore: failed to load file" << path;
+                return;
+            }
+
             auto temporary_file = QTemporaryFile::createNativeFile(qfile);
             auto full_path = temporary_file->fileName();
             qDebug() << "initializeCore: load wav file" << full_path;
             WaveFile * file = IntonCore::Helpers::openWaveFile(full_path.toStdString());
             qDebug() << "initializeCore: reload record" << full_path;
+
             this->core->reloadRecord(file);
         } else {
-            qDebug() << "initializeCore: load wav file" << path;
+            qDebug() << "Backend::initializeRecordCore: load wav file" << path;
             WaveFile * file = IntonCore::Helpers::openWaveFile(path.toStdString());
-            qDebug() << "initializeCore: reload record" << path;
+            qDebug() << "Backend::initializeRecordCore: reload record" << path;
             this->core->reloadRecord(file);
         }
     }
