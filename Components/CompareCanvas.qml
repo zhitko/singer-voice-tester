@@ -10,10 +10,15 @@ CompareCanvasForm {
     property double limitY: 10
     property var recordData: []
     property var templateData: []
+    property var currentPoint: ({})
 
     Component.onCompleted: {
         loadSettings()
         loadData()
+
+        root.currentPoint = calculateMark()
+        Bus.addPointToHistory(root.currentPoint)
+        drawMark()
     }
 
     function loadSettings() {
@@ -40,60 +45,42 @@ CompareCanvasForm {
         })
     }
 
-    function drawResultPoints(callback) {
-        console.log("CompareCanvasForm.drawResultPoints")
-
-        if (templateData.length !== 0) {
-            root.hasValues = true
-
-            let x = templateData[4] - recordData[4]; // Range
-            let y = templateData[8] - recordData[8]; // Pitch
-            console.log("CompareCanvasForm.drawResultPoints x ", x)
-            console.log("CompareCanvasForm.drawResultPoints y ", y)            
-
-            callback(x, y)
+    function preparePoint(ctx, size, lineWidth, fillColor, strokeColor, centerX, centerY, minSize) {
+        return function draw(x, y) {
+            ctx.beginPath()
+            ctx.arc(x*minSize + centerX, y*minSize + centerY, size, 0, 2 * Math.PI, false)
+            ctx.fillStyle = fillColor
+            ctx.fill()
+            ctx.lineWidth = lineWidth
+            ctx.strokeStyle = strokeColor
+            ctx.stroke()
         }
     }
 
-    function storePointHistory(callback) {
-        return function(x, y) {
-            console.log("CompareCanvasForm.storePointHistory x ", x)
-            console.log("CompareCanvasForm.storePointHistory y ", y)
-            Bus.addPointToHistory({ x: x, y: y })
-            callback(x, y)
-        }
-    }
-
-    function applyLimit(callback) {
+    function calculateMark() {
         function limitMax(value, limit) {
             if (value > limit) return limit
             else if (value < -limit) return -limit
             else return value
         }
 
-        return function(x, y) {
-            console.log("CompareCanvasForm.applyLimit x: ", x)
-            console.log("CompareCanvasForm.applyLimit y: ", y)
+        if (templateData.length !== 0) {
+            root.hasValues = true
+
+            let x = templateData[4] - recordData[4]; // Range
+            let y = templateData[8] - recordData[8]; // Pitch
+            console.log("CompareCanvasForm.calculateMark x ", x)
+            console.log("CompareCanvasForm.calculateMark y ", y)
 
             let nx = limitMax(x, limitX) / limitX
-            let ny = limitMax(y, limitY) / limitY * -1
+            let ny = limitMax(y, limitY) / limitY
 
-            console.log("CompareCanvasForm.applyLimit nx: ", nx)
-            console.log("CompareCanvasForm.applyLimit ny: ", ny)
+            console.log("CompareCanvasForm.calculateMark nx: ", nx)
+            console.log("CompareCanvasForm.calculateMark ny: ", ny)
 
-            callback(nx, ny)
-        }
-    }
-
-    function checkOutside(callback) {
-        return function(x, y) {
-            console.log("CompareCanvasForm.checkOutside x: ", x)
-            console.log("CompareCanvasForm.checkOutside y: ", y)
-
-            let c = 0.92
-            let t = 2 * c / ( Math.sqrt(4*(x*x + y*y)*c))
-            let xx = x * t
-            let yy = y * t
+            let m = Math.sqrt (1 / (x*x+y*y));
+            let xx = x * m
+            let yy = y * m
 
             console.log("CompareCanvasForm.applyLimit xx: ", xx)
             console.log("CompareCanvasForm.applyLimit yy: ", yy)
@@ -103,43 +90,19 @@ CompareCanvasForm {
             console.log("CompareCanvasForm.applyLimit outside: ", outside)
 
             if (outside) {
-                callback(xx, yy)
+                return { x: xx, y: yy }
             } else {
-                callback(x, y)
+                return { x: x, y: y }
             }
         }
     }
 
-    function preparePoint(ctx, size, lineWidth, fillColor, strokeColor, centerX, centerY) {
-        return function draw(x, y) {
-            ctx.beginPath()
-            ctx.arc(x*centerX + centerX, y*centerY + centerY, size, 0, 2 * Math.PI, false)
-            ctx.fillStyle = fillColor
-            ctx.fill()
-            ctx.lineWidth = lineWidth
-            ctx.strokeStyle = strokeColor
-            ctx.stroke()
-        }
-    }
-
-    function drawMark(callback) {
-        return function(x, y) {
-            console.log("CompareCanvasForm.setMark x: ", x)
-            console.log("CompareCanvasForm.setMark y: ", y)
-            callback(x, y)
-
-            let r = Math.sqrt(x*x + y*y)
-            if (r > 1) r = 1
-            const mark = 10 - r * 10
-            console.log("CompareCanvasForm.setMark mark: ", mark)
-            root.currentMark.text = mark.toFixed(0)
-            Bus.addMarkToHistory(mark)
-            root.iteration.text = Bus.getMarkHistory().length
-            const averageMarkValue = Bus.getMarkAvg().toFixed(0)
-            root.averageMark.text = averageMarkValue
-            Bus.setResultItem("3. Overall Score", averageMarkValue)
-            Bus.setResultItem("4. Tests Number", root.iteration.text)
-        }
+    function drawMark() {
+        root.currentMark.text = Bus.getMarkHistoryLastElement().toFixed(0)
+        root.iteration.text = Bus.getMarkHistory().length
+        root.averageMark.text = Bus.getMarkAvg().toFixed(0)
+        Bus.setResultItem("3. Overall Score", root.averageMark.text)
+        Bus.setResultItem("4. Tests Number", root.iteration.text)
     }
 
     canvas.onPaint: {
@@ -148,13 +111,15 @@ CompareCanvasForm {
 
         const centerX = canvas.canvasSize.width/2
         const centerY = canvas.canvasSize.height/2
-        const partSize = canvas.canvasSize.height/200
-        const centerPointSize = partSize * 10
+        const minSize = centerX < centerY ? centerX : centerY
+        const partSize = minSize/100
+        const redLineSize = partSize * 10
+        const centerPointSize = partSize * 8
         const previousPointSize = partSize * 4
         const resultPointSize = partSize * 6
 
         var gradient = ctx.createRadialGradient(centerX, centerY, 0,
-                                                centerX, centerY, centerX)
+                                                centerX, centerY, minSize)
         gradient.addColorStop(0.25, Theme.secondaryDark.color)
         gradient.addColorStop(0.9, Theme.secondaryLight.color)
         gradient.addColorStop(1, Colors.transparent)
@@ -163,17 +128,29 @@ CompareCanvasForm {
         ctx.fill()
 
         ctx.beginPath()
-        ctx.arc(centerX, centerY, centerX - 6, 0, 2 * Math.PI, false)
-        ctx.lineWidth = 12
+        ctx.arc(centerX, centerY, minSize - redLineSize/2, 0, 2 * Math.PI, false)
+        ctx.lineWidth = redLineSize
         ctx.strokeStyle = Colors.red800
         ctx.stroke()
 
-        preparePoint(ctx, centerPointSize, 2, Theme.primaryLight.color, Theme.primary.color, centerX, centerY)(0,0)
+        const minSizeForPoints = minSize - redLineSize/2
 
-        let previousPoint = preparePoint(ctx, previousPointSize, 2, Colors.white, Colors.white, centerX, centerY)
-        drawPreviousPoints(applyLimit(checkOutside(previousPoint)))
+        preparePoint(ctx, centerPointSize, 2,
+                     Theme.primaryLight.color, Theme.primary.color,
+                     centerX, centerY, minSizeForPoints)(0,0)
 
-        let resultPoint = preparePoint(ctx, resultPointSize, 2, Theme.secondaryDark.color, Colors.white, centerX, centerY)
-        drawResultPoints(storePointHistory(applyLimit(drawMark(checkOutside(resultPoint)))))
+        let previousPoint = preparePoint(
+            ctx, previousPointSize, 2,
+            Colors.white, Colors.white,
+            centerX, centerY, minSizeForPoints
+        )
+        drawPreviousPoints(previousPoint)
+
+        let resultPoint = preparePoint(
+            ctx, resultPointSize, 2,
+            Theme.secondaryDark.color,
+            Colors.white, centerX, centerY, minSizeForPoints
+        )
+        resultPoint(root.currentPoint.x, root.currentPoint.y)
     }
 }

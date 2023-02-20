@@ -3,17 +3,17 @@ import QtQuick.Controls 2.14
 
 import "../../App"
 
-RecordForm {
+TestRecordForm {
     id: root
-    objectName: Enum.pageRecord
+    objectName: Enum.pageTestRecord
 
     property bool startRecording: false
+    property bool showOpenButton: false
 
     StackView.onActivated: {
-        console.log("RecordForm.StackView.onActivated", root.startRecording)
+        console.log("TestRecordForm.StackView.onActivated", root.startRecording)
         Bus.hideAllBottomActions()
-        Bus.showOpenButton = true && Bus.canOpenButton
-        Bus.showOpenTemplateButton = true
+        Bus.showOpenButton = showOpenButton
 
         if (root.startRecording === true) {
             recordButton.checked = true

@@ -15,8 +15,7 @@ Item {
     property bool showSaveResultsButton: false
     property bool canPlayButton: true
     property bool showOpenButton: false
-    property bool showOpenTemplateButton: false
-    property bool canOpenButton: true//!backend.isMobile()
+    property bool canOpenButton: true
     property bool canOpenTemplateButton: true
 
     property string currentPage: ""
@@ -78,15 +77,44 @@ Item {
         results[key] = value
     }
 
+    function getExamples() {
+        console.log("Action.getExamples")
+        return backend.getWaveFilesList()
+    }
+
+    function copyToExamples(filePath, name) {
+        console.log("Action.copyToExamples: ", filePath, name)
+        return backend.copyToExamples(filePath, name)
+    }
+
     /*---------------------------------------------------------
       History
       ---------------------------------------------------------*/
-    function addPointToHistory(value) {
-        root.pointsHistory.push(value)
+    function isPointInArray(array, value) {
+        console.log("isPointInArray: ", value.x, value.y)
+        return !!array.find((element) => {
+            console.log("isPointInArray find: ", element.x, element.y)
+            return element.x === value.x && element.y === value.y
+        })
     }
 
-    function addMarkToHistory(value) {
-        root.marksHistory.push(value)
+    function addPointToHistory(value) {
+        console.log("addPointToHistory: ", value.x, value.y)
+        if (isPointInArray(root.pointsHistory, value)) return
+
+        root.pointsHistory.push(value)
+        addMarkToHistory(value)
+    }
+
+    function addMarkToHistory(value) {        
+        console.log("addMarkToHistory: ", value.x, value.y)
+
+        let r = Math.sqrt(value.x*value.x + value.y*value.y)
+        if (r > 1) r = 1
+        let mark = 10 - r * 10
+        console.log("addMarkToHistory mark: ", mark)
+
+        root.marksHistory.push(mark)
     }
 
     function cleanPointHistory() {
@@ -103,6 +131,10 @@ Item {
 
     function getMarkHistory() {
         return root.marksHistory
+    }
+
+    function getMarkHistoryLastElement() {
+        return root.marksHistory[root.marksHistory.length - 1]
     }
 
     function getMarkAvg() {
@@ -140,28 +172,40 @@ Item {
         root.templatePath = path
     }
 
-    function startRecord() {
+    function startRecord(reloadPath = true) {
         console.log("Action.startRecord")
 
-        setApplicationModePath(backend.startStopRecordWaveFile())
+        let path = backend.startStopRecordWaveFile(reloadPath)
+        if (reloadPath) {
+            setApplicationModePath(path)
+        }
 
         root.canRecordButton = false
         root.canPlayButton = false
         root.canOpenTemplateButton = false
         root.canOpenButton = false
+        return path
     }
 
-    function stopRecord() {
+    function stopRecord(reloadPath = true) {
         console.log("Action.stopRecord")
-        backend.startStopRecordWaveFile()
+        let path = backend.startStopRecordWaveFile(reloadPath)
 
-        stackView.pop()
-        goApplicationModePage()
+        if (reloadPath) {
+            console.log("Action.stopRecord stackView.pop")
+            stackView.pop()
+            if (stackView.currentItem.objectName === "../Pages/Training/Training.qml") {
+                console.log("Action.stopRecord stackView.pop", stackView.currentItem.objectName)
+                stackView.pop()
+            }
+            goApplicationModePage()
+        }
 
         root.canRecordButton = true
         root.canOpenTemplateButton = true
         root.canPlayButton = true
-        root.canOpenButton = true //&& !backend.isMobile()
+        root.canOpenButton = true
+        return path
     }
 
     function playRecord(playing) {
@@ -180,6 +224,12 @@ Item {
         console.log("Action.openFileDialog: isChanged = ", isChanged)
 
         if (isChanged) {
+            stackView.pop()
+            if (stackView.currentItem.objectName === "../Pages/Training/Training.qml" ||
+                    stackView.currentItem.objectName === "../Pages/Test/Test.qml") {
+                console.log("Action.stopRecord stackView.pop", stackView.currentItem.objectName)
+                stackView.pop()
+            }
             setApplicationModePath(newPath)
             goApplicationModePage(true)
         }
@@ -376,13 +426,25 @@ Item {
         goToPage(Enum.pageHome)
     }
 
-    function isRecordingPage() {
-        return isPage(Enum.pageRecord)
+    function isRecordPage() {
+        return isPage(Enum.pageTestRecord) || isPage(Enum.pageTrainingRecord)
     }
 
-    function goRecording() {
-        stackView.pop()
-        goToPage(Enum.pageRecord, {showVoiceSelect: false}, true)
+    function goRecord(mode, startRecording, firstRun = true) {
+        root.applicationMode = mode || root.applicationMode
+        if (applicationMode === Enum.modeTest) {
+            goToPage(Enum.pageTestRecord, {
+                startRecording: startRecording,
+                showVoiceSelect: true,
+                showOpenButton: !Bus.isMobile()
+            })
+        } else if (applicationMode === Enum.modeTraining) {
+            goToPage(Enum.pageTrainingRecord, {
+                startRecording: startRecording,
+                showOpenButton: !Bus.isMobile(),
+                firstRun: firstRun
+            })
+        }
     }
 
     function goApplicationModePage(force = false) {
@@ -416,15 +478,6 @@ Item {
         goToPage(Enum.pageSettings)
     }
 
-    function isRecordPage() {
-        return isPage(Enum.pageRecord)
-    }
-
-    function goRecord(mode, startRecording) {
-        root.applicationMode = mode || root.applicationMode
-        goToPage(Enum.pageRecord, {startRecording: startRecording, showVoiceSelect: applicationMode === Enum.modeTest})
-    }
-
     function isResultsPage() {
         return isPage(Enum.pageResults)
     }
@@ -441,11 +494,24 @@ Item {
         goToPage(Enum.pagePolicy)
     }
 
+    function isAddExamplePage() {
+        return isPage(Enum.pageAddExample)
+    }
+
+    function goAddExample() {
+        goToPage(Enum.pageAddExample)
+    }
+
     /*---------------------------------------------------------
       Helpers
       ---------------------------------------------------------*/
 
+    function isMobile() {
+        return backend.isMobile()
+    }
+
     function hideAllBottomActions() {
+        console.log("Bus.hideAllBottomActions")
         root.showRecordButton = false
         root.showPlayButton = false
         root.showOpenButton = false

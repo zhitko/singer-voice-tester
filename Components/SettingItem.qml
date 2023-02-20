@@ -26,6 +26,7 @@ ColumnLayout {
             input.text = changed(key, input.text)
         }
     }
+
     TextArea {
         id: inputArea
         Layout.fillWidth: true
@@ -39,6 +40,7 @@ ColumnLayout {
             input.text = changed(key, inputArea.text)
         }
     }
+
     Switch {
         id: inputSwitch
         font.pointSize: 15

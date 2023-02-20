@@ -8,6 +8,6 @@ RecordButtonForm {
     id: root
 
     button.onClicked: {
-        Bus.goRecording()
+        Bus.goRecord(Bus.applicationMode, false, false)
     }
 }

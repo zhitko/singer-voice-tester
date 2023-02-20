@@ -161,6 +161,38 @@ ApplicationWindow {
                     iconColor: Bus.isPolicyPage() ? Theme.secondary.color : Theme.backgound.textColor
                 }
             }
+
+            ItemDelegate {
+                width: parent.width
+                onClicked: {
+                    Qt.openUrlExternally("https://intontrainer.by/downloads/SingerVoiceTester_UserGuide_en.pdf");
+                    drawer.close()
+                }
+
+                FontAwesomeIconText {
+                    icon: FontAwesome.icons.faBook
+                    text: qsTr("User Guide")
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: Theme.backgound.textColor
+                    iconColor: Theme.backgound.textColor
+                }
+            }
+
+            ItemDelegate {
+                width: parent.width
+                onClicked: {
+                    Qt.openUrlExternally("https://intontrainer.by/#svt");
+                    drawer.close()
+                }
+
+                FontAwesomeIconText {
+                    icon: FontAwesome.icons.faInfo
+                    text: qsTr("More Details")
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: Theme.backgound.textColor
+                    iconColor: Theme.backgound.textColor
+                }
+            }
         }
     }
 }

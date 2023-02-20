@@ -10,7 +10,14 @@
 
 QVariantList Backend::getWaveFilesList()
 {
-    QDir dataDir(ApplicationConfig::GetFullDataPath());
+#ifdef ANDROID
+    const QString path = QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).at(0) +
+            QDir::separator() + "SingerVoiceTester";
+#else
+    const QString path = ApplicationConfig::GetFullTestsPath();
+#endif
+    qDebug() << "Backend::getWaveFilesList path: " << path;
+    QDir dataDir(path);
     QStringList allFiles = dataDir.entryList(ApplicationConfig::WaveFileFilter, QDir::NoDotAndDotDot | QDir::Files);
     qDebug() << "Backend::getWaveFilesList allFiles: " << allFiles;
 
@@ -25,6 +32,22 @@ QVariantList Backend::getWaveFilesList()
     }
 
     return fileList;
+}
+
+void Backend::copyToExamples(QString filePath, QString name) {
+    qDebug() << "Backend::copyToExamples filePath: " << filePath;
+    qDebug() << "Backend::copyToExamples name: " << name;
+#ifdef ANDROID
+    const QString path = QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).at(0) +
+            QDir::separator() + "SingerVoiceTester";
+#else
+    const QString path = ApplicationConfig::GetFullTestsPath();
+#endif
+    qDebug() << "Backend::copyToExamples path: " << path;
+
+    QDir dir(path);
+
+    QFile::copy(filePath, dir.absoluteFilePath(name + ".wav"));
 }
 
 void Backend::deleteWaveFile(QString path)

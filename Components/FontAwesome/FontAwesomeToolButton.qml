@@ -9,6 +9,8 @@ Item {
     property alias font: awesome.font
     property alias color: awesome.color
     property alias type: awesome.type
+    property alias hintText: hint.text
+    property alias hintColor: hint.color
 
     property int baseSize: 22
 
@@ -24,5 +26,15 @@ Item {
     ToolButton {
         id: button
         anchors.fill: parent
+    }
+
+    Label {
+        id: hint
+
+        anchors.top: button.bottom
+        anchors.topMargin: 10
+        anchors.horizontalCenter: button.horizontalCenter
+
+        visible: button.hovered
     }
 }

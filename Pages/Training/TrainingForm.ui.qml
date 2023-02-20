@@ -16,12 +16,12 @@ Page {
     CompareCanvas {
         id: compareChart
 
-        height: parent.height / 2.05
-        width: height
+        height: parent.height / 2.2
 
         anchors.top: parent.top
         anchors.topMargin: 10
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.right: parent.right
+        anchors.left: parent.left
     }
 
     VoiceChart {

@@ -6,6 +6,10 @@ AnimatedRecordButtonForm {
     id: root
 
     property int frame: 0
+    property bool reloadPath: true
+
+    signal recordingStarted(path: string)
+    signal recordingStopped(path: string)
 
     Timer {
         id: timer
@@ -26,21 +30,23 @@ AnimatedRecordButtonForm {
     }
 
     function startRecording() {
-        var dateTime = getDatetime()
+        const dateTime = getDatetime()
 
-        Bus.startRecord()
+        const path = Bus.startRecord(reloadPath)
         timer.start()
         root.icon.source = "qrc:/Assets/Images/speech-active-0-icon.png"
         Bus.setResultItem("1. Recording started", dateTime)
+        root.recordingStarted(path)
     }
 
     function stopRecording() {
-        var dateTime = getDatetime()
+        const dateTime = getDatetime()
 
-        Bus.stopRecord()
+        const path = Bus.stopRecord(reloadPath)
         timer.stop()
         root.icon.source = "qrc:/Assets/Images/speech-icon.png"
         Bus.setResultItem("2. End of the recording", dateTime)
+        root.recordingStopped(path)
     }
 
     onCheckedChanged: {

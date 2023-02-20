@@ -39,8 +39,6 @@
         <file>App/Enum.qml</file>
         <file>App/qmldir</file>
         <file>App/Bus.qml</file>
-        <file>Pages/Record/Record.qml</file>
-        <file>Pages/Record/RecordForm.ui.qml</file>
         <file>App/Config.qml</file>
         <file>Assets/Images/speech-icon.png</file>
         <file>Assets/Images/speech-active-2-icon.png</file>
@@ -74,8 +72,6 @@
         <file>Components/VoiceChartForm.ui.qml</file>
         <file>Components/VoiceChart.qml</file>
         <file>Components/CompareCanvas.qml</file>
-        <file>Pages/Recording/Recording.qml</file>
-        <file>Pages/Recording/RecordingForm.ui.qml</file>
         <file>Components/VoiceChartMarksForm.ui.qml</file>
         <file>Components/VoiceChartMarks.qml</file>
         <file>Components/PianoFooterFull.ui.qml</file>
@@ -86,5 +82,14 @@
         <file>Components/Material/Color.qml</file>
         <file>3party/chroma.js</file>
         <file>Components/CompareCanvasForm.ui.qml</file>
+        <file>Components/FilesList.qml</file>
+        <file>Pages/AddExample/AddExampleForm.ui.qml</file>
+        <file>Pages/AddExample/AddExample.qml</file>
+        <file>Pages/TrainingRecord/TrainingRecord.qml</file>
+        <file>Pages/TrainingRecord/TrainingRecordForm.ui.qml</file>
+        <file>Pages/TestRecord/TestRecordForm.ui.qml</file>
+        <file>Pages/TestRecord/TestRecord.qml</file>
+        <file>Pages/Files/FilesForm.ui.qml</file>
+        <file>Pages/Files/Files.qml</file>
     </qresource>
 </RCC>

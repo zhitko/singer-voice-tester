@@ -2,20 +2,48 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
+    <name>AddExampleForm.ui</name>
+    <message>
+        <location filename="Pages/AddExample/AddExampleForm.ui.qml" line="12"/>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="Pages/AddExample/AddExampleForm.ui.qml" line="27"/>
+        <source>1. Please sing the verse of the reference song</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Pages/AddExample/AddExampleForm.ui.qml" line="48"/>
+        <source>Click to stop recording</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Pages/AddExample/AddExampleForm.ui.qml" line="49"/>
+        <source>Click to start recording</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Pages/AddExample/AddExampleForm.ui.qml" line="78"/>
+        <source>2. Set example name</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Backend</name>
     <message>
-        <location filename="src/backend_files.cpp" line="66"/>
-        <location filename="src/backend_files.cpp" line="76"/>
+        <location filename="src/backend_files.cpp" line="89"/>
+        <location filename="src/backend_files.cpp" line="99"/>
         <source>Open File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/backend_files.cpp" line="68"/>
+        <location filename="src/backend_files.cpp" line="91"/>
         <source>Wave (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/backend_files.cpp" line="78"/>
+        <location filename="src/backend_files.cpp" line="101"/>
         <source>Wave (*.wav)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23,25 +51,46 @@
 <context>
     <name>CompareCanvasForm.ui</name>
     <message>
-        <location filename="Components/CompareCanvasForm.ui.qml" line="57"/>
+        <location filename="Components/CompareCanvasForm.ui.qml" line="139"/>
         <source>Reference  Target of Singing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Components/CompareCanvasForm.ui.qml" line="86"/>
+        <location filename="Components/CompareCanvasForm.ui.qml" line="67"/>
         <source>Current
 Score</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Components/CompareCanvasForm.ui.qml" line="111"/>
+        <location filename="Components/CompareCanvasForm.ui.qml" line="38"/>
         <source>Test Serial
 Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Components/CompareCanvasForm.ui.qml" line="136"/>
+        <location filename="Components/CompareCanvasForm.ui.qml" line="92"/>
         <source>Overall Score</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FilesForm.ui</name>
+    <message>
+        <location filename="Pages/Files/FilesForm.ui.qml" line="12"/>
+        <source></source>
+        <translation></translation>
+    </message>
+</context>
+<context>
+    <name>FilesList</name>
+    <message>
+        <location filename="Components/FilesList.qml" line="52"/>
+        <source>Or open example file:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Components/FilesList.qml" line="94"/>
+        <source>Add an example</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -73,7 +122,6 @@ Number</source>
     <message>
         <location filename="Components/MetricsHeader.qml" line="19"/>
         <source>Pitch: %1 	 Range: %2</source>
-        <oldsource>Pitch: %1 	 Diapason: %2</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -152,30 +200,21 @@ Number</source>
         <source></source>
         <translation></translation>
     </message>
+</context>
+<context>
+    <name>RecordWithExamplesForm</name>
     <message>
-        <location filename="Pages/Record/RecordForm.ui.qml" line="26"/>
-        <source>Please indicate your voice:</source>
-        <translation type="unfinished"></translation>
+        <location filename="Pages/RecordWithExamples/RecordWithExamplesForm.qml" line="13"/>
+        <source></source>
+        <translation></translation>
     </message>
+</context>
+<context>
+    <name>RecordWithExamplesForm.ui</name>
     <message>
-        <location filename="Pages/Record/RecordForm.ui.qml" line="46"/>
-        <source>Male</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Pages/Record/RecordForm.ui.qml" line="58"/>
-        <source>Female</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Pages/Record/RecordForm.ui.qml" line="78"/>
-        <source>Click to stop recording</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Pages/Record/RecordForm.ui.qml" line="78"/>
-        <source>Click to start recording</source>
-        <translation type="unfinished"></translation>
+        <location filename="Pages/RecordWithExamples/RecordWithExamplesForm.ui.qml" line="12"/>
+        <source></source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -184,16 +223,6 @@ Number</source>
         <location filename="Pages/Recording/RecordingForm.ui.qml" line="12"/>
         <source></source>
         <translation></translation>
-    </message>
-    <message>
-        <location filename="Pages/Recording/RecordingForm.ui.qml" line="30"/>
-        <source>Click to stop recording</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Pages/Recording/RecordingForm.ui.qml" line="30"/>
-        <source>Click to start recording</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -226,10 +255,79 @@ Number</source>
     </message>
 </context>
 <context>
+    <name>TestRecordForm.ui</name>
+    <message>
+        <location filename="Pages/TestRecord/TestRecordForm.ui.qml" line="12"/>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="Pages/TestRecord/TestRecordForm.ui.qml" line="26"/>
+        <source>Please indicate your voice:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Pages/TestRecord/TestRecordForm.ui.qml" line="45"/>
+        <source>Male</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Pages/TestRecord/TestRecordForm.ui.qml" line="57"/>
+        <source>Female</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Pages/TestRecord/TestRecordForm.ui.qml" line="78"/>
+        <source>Click to stop recording</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Pages/TestRecord/TestRecordForm.ui.qml" line="79"/>
+        <source>Click to start recording</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TrainingForm.ui</name>
     <message>
         <location filename="Pages/Training/TrainingForm.ui.qml" line="14"/>
         <source>Practice Your Singing Voice</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TrainingRecordForm</name>
+    <message>
+        <location filename="Pages/TrainingRecord/TrainingRecordForm.qml" line="13"/>
+        <source></source>
+        <translation></translation>
+    </message>
+</context>
+<context>
+    <name>TrainingRecordForm.ui</name>
+    <message>
+        <location filename="Pages/TrainingRecord/TrainingRecordForm.ui.qml" line="13"/>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="Pages/TrainingRecord/TrainingRecordForm.ui.qml" line="52"/>
+        <source>Please sing the verse &lt;br&gt; of the &lt;b&gt;Reference&lt;/b&gt; song!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Pages/TrainingRecord/TrainingRecordForm.ui.qml" line="53"/>
+        <source>Please sing the &lt;b&gt;Same Verse&lt;/b&gt; &lt;br&gt; of the reference song &lt;br&gt; for &lt;b&gt;Testing&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Pages/TrainingRecord/TrainingRecordForm.ui.qml" line="67"/>
+        <source>Click to stop recording</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Pages/TrainingRecord/TrainingRecordForm.ui.qml" line="68"/>
+        <source>Click to start recording</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -258,7 +356,6 @@ Number</source>
     <message>
         <location filename="Components/VoiceHeaderForm.ui.qml" line="85"/>
         <source>Mezzo-soprano</source>
-        <oldsource>Mezzo</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -270,7 +367,7 @@ Number</source>
 <context>
     <name>VoiceHeaderTile.ui</name>
     <message>
-        <location filename="Components/VoiceHeaderTile.ui.qml" line="97"/>
+        <location filename="Components/VoiceHeaderTile.ui.qml" line="99"/>
         <source></source>
         <translation></translation>
     </message>
@@ -301,6 +398,16 @@ Number</source>
     <message>
         <location filename="main.qml" line="158"/>
         <source>Privacy Policy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.qml" line="174"/>
+        <source>User Guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.qml" line="190"/>
+        <source>More Details</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -13,11 +13,12 @@ TrainingForm {
     property int maxPitch: 1
 
     StackView.onActivated: {
-        console.log("PitchForm.StackView.onActivated")
+        console.log("Training.StackView.onActivated")
         Bus.hideAllBottomActions()
         Bus.showPlayButton = Bus.recordPath !== ""
         Bus.showSaveResultsButton = Bus.recordPath !== ""
         Bus.showRecordButton = true
+        Bus.showOpenButton = false
 
         loadSettings()
 

@@ -29,20 +29,25 @@ void Backend::playWaveFile(QString path, bool stop)
     }
 }
 
-QString Backend::startStopRecordWaveFile()
+QString Backend::startStopRecordWaveFile(bool reloadPath = true)
 {
     QString path = "";
     if (!this->recorder->isRecording())
     {
         qDebug() << "Backend::startStopRecordWaveFile: start recording";
         path = this->recorder->startRecording();
-        this->path = path;
+        if (reloadPath) {
+            this->path = path;
+        }
     } else {
         qDebug() << "Backend::startStopRecordWaveFile: stop recording";
         WaveFile * file = this->recorder->stopRecording();
+        path = file->filePath;
         qDebug() << "Backend::startStopRecordWaveFile: reset wave file " << file;
-        this->initializeCore();
-        this->core->reloadRecord(file);
+        if (reloadPath) {
+            this->initializeCore();
+            this->core->reloadRecord(file);
+        }
     }
 
     qDebug() << "Backend::startStopRecordWaveFile: complete - " << path;

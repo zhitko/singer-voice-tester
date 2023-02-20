@@ -13,13 +13,95 @@ Item {
 
     property bool hasValues: false
 
+    Label {
+        id: iteration
+        visible: hasValues
+
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.leftMargin: 20
+
+        text: "-"
+        font.pointSize: currentMark.font.pointSize
+        color: Colors.indigo800
+    }
+
+    Label {
+        id: iterationLabel
+        visible: iteration.visible
+
+        anchors.bottom: iteration.top
+        anchors.bottomMargin: 5
+        anchors.left: parent.left
+        anchors.leftMargin: 5
+
+        text: qsTr("Test Serial\nNumber")
+        font.pointSize: 14
+        horizontalAlignment: "AlignHCenter"
+        color: iteration.color
+    }
+
+    Label {
+        id: currentMark
+        visible: hasValues
+
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: parent.right
+        anchors.rightMargin: 20
+
+        text: "-"
+        font.pointSize: 35
+        color: Colors.green800
+    }
+
+    Label {
+        id: currentMarkLabel
+        visible: currentMark.visible
+
+        anchors.bottom: currentMark.top
+        anchors.bottomMargin: 5
+        anchors.right: parent.right
+        anchors.rightMargin: 5
+        width: iterationLabel.width
+
+        text: qsTr("Current\nScore")
+        font.pointSize: iterationLabel.font.pointSize
+        horizontalAlignment: "AlignHCenter"
+        color: currentMark.color
+    }
+
+    Label {
+        id: averageMark
+
+        visible: hasValues
+
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+
+        text: "-"
+        font.pointSize: currentMark.font.pointSize
+        color: Colors.deepOrange800
+    }
+
+    Label {
+        visible: averageMark.visible
+
+        anchors.verticalCenter: averageMark.verticalCenter
+        anchors.right: averageMark.left
+        anchors.rightMargin: 15
+        text: qsTr("Overall Score")
+        font.pointSize: currentMarkLabel.font.pointSize
+        color: averageMark.color
+    }
+
     Canvas {
         id: canvas
-        width: height
-        anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 40
+        anchors.bottom: averageMark.top
+        anchors.left: iterationLabel.right
+        anchors.leftMargin: 5
+        anchors.right: currentMarkLabel.left
+        anchors.rightMargin: 5
     }
 
     Shape {
@@ -59,82 +141,5 @@ Item {
         font.underline: true
         font.bold: true
         color: Theme.secondaryDark.titleColor
-    }
-
-    Label {
-        id: currentMark
-
-        visible: hasValues
-
-        anchors.left: canvas.right
-        anchors.leftMargin: 20
-        anchors.verticalCenter: canvas.verticalCenter
-
-        text: "-"
-        font.pointSize: 35
-        color: Colors.green800
-    }
-
-    Label {
-        id: currentMarkLabel
-
-        visible: currentMark.visible
-
-        anchors.bottom: currentMark.top
-        anchors.left: currentMark.left
-        anchors.leftMargin: -currentMark.anchors.leftMargin
-        text: qsTr("Current\nScore")
-        font.pointSize: 14
-        color: currentMark.color
-    }
-
-    Label {
-        id: iteration
-
-        visible: hasValues
-
-        anchors.right: canvas.left
-        anchors.rightMargin: currentMark.anchors.leftMargin
-        anchors.verticalCenter: canvas.verticalCenter
-
-        text: "-"
-        font.pointSize: currentMark.font.pointSize
-        color: Colors.indigo800
-    }
-
-    Label {
-        visible: iteration.visible
-
-        anchors.bottom: iteration.top
-        anchors.right: iteration.right
-        anchors.rightMargin: -currentMark.anchors.leftMargin
-        text: qsTr("Test Serial\nNumber")
-        font.pointSize: currentMarkLabel.font.pointSize
-        horizontalAlignment: "AlignRight"
-        color: iteration.color
-    }
-
-    Label {
-        id: averageMark
-
-        visible: hasValues
-
-        anchors.horizontalCenter: canvas.horizontalCenter
-        anchors.top: canvas.bottom
-
-        text: "-"
-        font.pointSize: currentMark.font.pointSize
-        color: Colors.deepOrange800
-    }
-
-    Label {        
-        visible: averageMark.visible
-
-        anchors.verticalCenter: averageMark.verticalCenter
-        anchors.right: averageMark.left
-        anchors.rightMargin: 15
-        text: qsTr("Overall Score")
-        font.pointSize: currentMarkLabel.font.pointSize
-        color: averageMark.color
     }
 }

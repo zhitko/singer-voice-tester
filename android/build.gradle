@@ -46,7 +46,9 @@ android {
             res.srcDirs = [qt5AndroidDir + '/res', 'res']
             resources.srcDirs = ['resources']
             renderscript.srcDirs = ['src']
-            assets.srcDirs = ['assets','examples']
+            // Add examples files to package
+            //assets.srcDirs = ['assets','examples']
+            assets.srcDirs = ['assets']
             jniLibs.srcDirs = ['libs']
        }
     }
@@ -72,6 +74,7 @@ android {
     defaultConfig {
         resConfig "en"
         minSdkVersion = qtMinSdkVersion
-        targetSdkVersion = 31
+        targetSdkVersion = qtTargetSdkVersion
+        //targetSdkVersion = 31
     }
 }

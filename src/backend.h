@@ -39,9 +39,10 @@ public:
 
     // Files API
     Q_INVOKABLE QVariantList getWaveFilesList();
+    Q_INVOKABLE void copyToExamples(QString filePath, QString name);
     Q_INVOKABLE void deleteWaveFile(QString path);
     Q_INVOKABLE void playWaveFile(QString path, bool stop);
-    Q_INVOKABLE QString startStopRecordWaveFile();
+    Q_INVOKABLE QString startStopRecordWaveFile(bool reloadPath);
     Q_INVOKABLE QString openFileDialog();
 
     Q_INVOKABLE QString getSavedResults();

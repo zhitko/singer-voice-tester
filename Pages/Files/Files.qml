@@ -3,12 +3,13 @@ import QtQuick.Controls 2.14
 
 import "../../App"
 
-RecordingForm {
+FilesForm {
     id: root
-    objectName: Enum.pageRecording
+    objectName: Enum.pageFiles
 
     StackView.onActivated: {
-        console.log("RecordingForm.StackView.onActivated")
+        console.log("FilesForm.StackView.onActivated")
         Bus.hideAllBottomActions()
+        Bus.showOpenButton = true
     }
 }

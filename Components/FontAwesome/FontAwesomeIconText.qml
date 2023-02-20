@@ -8,6 +8,7 @@ Item {
     property string icon: FontAwesome.icons.faQuestionCircle
     property string color: "white"
     property string iconColor: "white"
+    property alias iconPointSize: awesomeIcon.font.pointSize
 
     FontAwesomeIcon {
         id: awesomeIcon
