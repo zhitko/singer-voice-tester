@@ -32,18 +32,18 @@
 <context>
     <name>Backend</name>
     <message>
-        <location filename="src/backend_files.cpp" line="89"/>
-        <location filename="src/backend_files.cpp" line="99"/>
+        <location filename="src/backend_files.cpp" line="90"/>
+        <location filename="src/backend_files.cpp" line="100"/>
         <source>Open File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/backend_files.cpp" line="91"/>
+        <location filename="src/backend_files.cpp" line="92"/>
         <source>Wave (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/backend_files.cpp" line="101"/>
+        <location filename="src/backend_files.cpp" line="102"/>
         <source>Wave (*.wav)</source>
         <translation type="unfinished"></translation>
     </message>

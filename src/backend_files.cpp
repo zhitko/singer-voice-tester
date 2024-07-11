@@ -62,7 +62,8 @@ void Backend::deleteWaveFile(QString path)
 bool requestAndroidExternalStoragePermissions() {
     const QVector<QString> permissions(
                 {"android.permission.WRITE_EXTERNAL_STORAGE",
-                 "android.permission.READ_EXTERNAL_STORAGE"}
+                 "android.permission.READ_EXTERNAL_STORAGE",
+                 "android.permission.READ_MEDIA_AUDIO"}
     );
     for (const QString &permission : permissions) {
         auto result = QtAndroid::checkPermission(permission);
