@@ -10,7 +10,7 @@ https://intontrainer.by/
 
 ## Installation
 
-Currently on our website (see https://intontrainer.by ) the SRM prototype is uploaded, available for free download.
+Currently on our website (see https://intontrainer.by ) the SVT prototype is uploaded, available for free download.
 
 ---
 
