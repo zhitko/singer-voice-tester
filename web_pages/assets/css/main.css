@@ -1,0 +1,965 @@
+:root {
+    --primary: #7cf3e6;
+    --primary-dark: #4da89f;
+    --bg-header: linear-gradient(145deg, #0a0f18 0%, #1e293b 50%, #156663 100%);
+    --text-light: rgba(255, 255, 255, 0.85);
+    --text-gray: #666;
+    --title-gray: #555;
+    --light-bg: #f4f4f4;
+    --white: #ffffff;
+    --font-main: 'Source Sans Pro', sans-serif;
+
+	/* ЦВЕТА (Сделаем чуть благороднее) */
+    --bg-light: #f4f7fa;      /* Чистый, свежий стальной */
+    --bg-deep: #1a2635;       /* Глубокий «полуночный» для style2 */
+    --card-surface: #243447;  /* Цвет карточек */
+    
+    /* ТЕРМИНАЛ (Переработанный) */
+    --code-bg: #0f172a;       /* Темный, но не черный */
+    --code-border: #334155;
+    
+    --text-dark: #1e293b;
+    --text-light: #f8fafc;
+}
+
+/* --- ОБЩИЕ СТИЛИ --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--text-gray);
+    background: var(--bg-light);
+	-webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+section {
+    padding: 6em 0;
+    text-align: center;
+}
+
+p {
+	margin-bottom: 0.5rem;
+}
+
+/* --- ЧЕРЕДОВАНИЕ --- */
+.style1 { background: var(--bg-light); color: var(--text-dark); }
+.style2 { 
+    background: var(--bg-deep); 
+    color: var(--text-light); 
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* --- ТИПОГРАФИКА --- */
+h1, h2, h3 {
+    color: var(--title-gray);
+    margin-bottom: 1rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+
+h1 { font-size: 3.8rem; color: #fff; }
+h2 { font-size: 2.6rem; }
+h3 { font-size: 1.5rem; font-weight: 400; }
+
+.style1 h2{ color: var(--title-gray)}
+.style2 h2{ color: var(--primary)}
+.style1 h3 { color: var(--title-gray)}
+.style2 h3 { color: var(--primary)}
+
+
+
+
+
+.style1 a {
+    color: #4da89f;
+    text-decoration: none;
+}
+.style2 a {
+    color: var(--text-light);
+	text-decoration: none;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+    text-align: left;
+}
+
+.col {
+    flex: 1;
+    min-width: 320px;
+}
+
+/* --- ГЛАВНЫЙ ЭКРАН (HEADER) --- */
+#header {
+    position: relative;
+    background: var(--bg-header);
+    padding: 120px 0;
+    color: #fff;
+    min-height: 750px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+#header p.subtitle {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+/* --- ИНТЕРАКТИВНАЯ АНИМАЦИЯ ТЕЛЕФОНОВ (ДЕСКТОП) --- */
+.phone-showcase {
+    position: relative;
+    height: 500px;
+    width: 90%;
+    perspective: 2000px;
+    transform-style: preserve-3d;
+}
+
+.phone-showcase img {
+    position: absolute;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.img-back-left {
+    width: 210px;
+    left: 0;
+    top: 60px;
+    z-index: 1;
+    opacity: 0.4;
+    transform: rotateY(20deg) translateZ(-50px);
+}
+
+.img-back-right {
+    width: 210px;
+    right: 0;
+    top: 60px;
+    z-index: 1;
+    opacity: 0.4;
+    transform: rotateY(-20deg) translateZ(-50px);
+}
+
+.img-main {
+    width: 260px;
+    left: 50%;
+    margin-left: -130px;
+    top: 0;
+    z-index: 3;
+    border: 4px solid var(--primary);
+}
+
+/* Эффект разлета при наведении (только для устройств с мышью) */
+@media (min-width: 1025px) {
+    .phone-showcase:hover .img-back-left {
+        transform: translateX(-50px) rotateY(30deg) translateZ(-70px);
+        opacity: 0.7;
+    }
+    .phone-showcase:hover .img-back-right {
+        transform: translateX(50px) rotateY(-30deg) translateZ(-70px);
+        opacity: 0.7;
+    }
+    .phone-showcase:hover .img-main {
+        transform: translateZ(100px) scale(1.05);
+        box-shadow: 0 40px 80px rgba(107, 212, 200, 0.3);
+    }
+}
+
+/* --- КНОПКИ --- */
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 2rem;
+}
+
+.button {
+	font-family: var(--font-main);
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8em 1.8em;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+    border: 2px solid var(--primary);
+    color: var(--primary) !important;
+    font-size: 0.95rem;
+    cursor: pointer;
+	letter-spacing: 1px;
+    padding: 1rem 2.2rem;
+    border-radius: 8px;
+}
+
+.button i {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.button.special {
+    background: var(--primary);
+    color: #0f172a !important;
+}
+
+.button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(107, 212, 200, 0.2);
+    filter: brightness(1.1);
+}
+
+/* --- СПИСКИ --- */
+.features-list {
+    list-style: none;
+    margin: 1.5rem 0;
+    text-align: left;
+}
+
+.features-list li {
+    margin-bottom: 0.8em;
+    padding-left: 1.8em;
+    position: relative;
+    color: inherit;
+}
+
+#header .features-list li {
+    color: var(--text-light);
+}
+
+.features-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+/* --- КОД --- */
+code {
+    display: block;
+    background: #272822;
+    color: #f8f8f2;
+    padding: 1.5em;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    text-align: left;
+    overflow-x: auto;
+    margin-top: 1rem;
+}
+
+.image.fit img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* --- ПОДВАЛ --- */
+footer {
+    background: #0f172a;
+    color: #888;
+    padding: 4em 0;
+    text-align: center;
+}
+
+footer a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+/* --- АДАПТИВНОСТЬ (MOBILE STATIC) --- */
+@media (max-width: 1024px) {
+    section { padding: 3em 0; }
+    
+    #header {
+        padding: 40px 40px;
+        text-align: center;
+        min-height: auto;
+        display: block;
+    }
+
+    h1 { font-size: 2.2rem; }
+
+    .row {
+        flex-direction: column-reverse;
+        gap: 30px;
+    }
+
+    .phone-showcase {
+        height: 380px; 
+        margin: 40px auto 0;
+		margin-bottom: 40px;
+        max-width: 220px;
+        transform: none;
+        perspective: none;
+        transform-style: flat;
+    }
+
+    .phone-showcase img {
+        transition: none !important;
+        animation: none !important;
+        pointer-events: none; /* Чтобы не мешали скроллу */
+		
+    }
+
+    .img-back-left {
+        width: 170px;
+        left: -30px;
+        top: 40px;
+        opacity: 0.3;
+        z-index: 1;
+    }
+
+    .img-back-right {
+        width: 170px;
+        right: -30px;
+        top: 40px;
+        opacity: 0.3;
+        z-index: 1;
+    }
+
+    .img-main {
+        width: 210px;
+        left: 50%;
+        margin-left: -105px;
+        top: 0;
+        opacity: 1;
+        z-index: 2;
+        transform: none;
+        border: 3px solid var(--primary);
+    }
+
+    .actions {
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .button { 
+        width: 100%; 
+        max-width: 300px;
+        margin-bottom: 10px;
+    }
+
+    .col { min-width: 100%; }
+    
+    /* .features-list li {
+        color: #fff;
+    }*/
+}
+
+/* Дополнительные стили для блоков */
+.section-header { margin-bottom: 3em; }
+
+/* Общие изображения */
+.image-wrapper img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Стили карточек */
+/* --- КАРТОЧКИ --- */
+
+.row.cards {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch; /* Растягивает все колонки в ряду по самой высокой */
+}
+.card {
+    background: var(--card-surface);
+    font-family: var(--font-main);
+    padding: 35px;
+    border-radius: 20px;
+    border: 1px solid rgba(124, 243, 230, 0.1);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    transition: all 0.4s ease;
+	display: flex;
+    flex-direction: column;
+}
+
+.card-header {
+    display: flex;
+    align-items: center; /* Центрируем иконку и текст по вертикали */
+    gap: 20px;           /* Расстояние между иконкой и текстом */
+    margin-bottom: 1.5rem;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary);
+    box-shadow: 0 20px 45px rgba(124, 243, 230, 0.2);
+}
+
+.card-icon {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 0;     /* Убираем нижний отступ, так как теперь работаем через gap */
+    flex-shrink: 0;       /* Чтобы иконка не сжималась */
+}
+
+.card h3 {
+    margin-bottom: 0;     /* Убираем отступ, чтобы не ломать центровку */
+    line-height: 1.2;
+    font-weight: 600;
+}
+
+/* Оставляем список ниже */
+.card .features-list {
+    margin-top: 1rem;
+}
+
+
+/* Адаптив для карточек */
+@media (max-width: 768px) {
+    .card { margin-bottom: 20px; }
+    .col-3 { min-width: 100%; }
+}
+
+
+/* --- ГАЛЕРЕЯ (Исправленная: без обрезки при зуме) --- */
+.gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Чуть увеличил для "воздуха" между тенями */
+    align-items: stretch;
+    padding: 20px 0; /* Отступ, чтобы зум не упирался в края секции */
+}
+
+.col-3 {
+    flex: 1 0 auto; 
+    text-align: center;
+    height: 300px; 
+    max-width: 100%;
+    position: relative; /* Чтобы z-index работал корректно */
+    /* УДАЛЕНО: overflow: hidden (именно он вызывал обрезку) */
+}
+
+.gallery-img {
+    height: 100%;
+    object-fit: contain; 
+    border-radius: 15px; /* Закругление как в authors-block */
+    
+    /* СТИЛЬНАЯ ТЕНЬ: Мягкая и глубокая */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08), 
+                0 1px 4px rgba(0,0,0,0.04);
+    
+    background: transparent;
+    cursor: pointer;
+    
+    /* Плавность анимации */
+    transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1), 
+                box-shadow 0.5s ease, 
+                filter 0.3s ease;
+}
+
+/* ЭФФЕКТ ПРИ НАВЕДЕНИИ */
+.gallery-img:hover {
+    /* Теперь увеличивается вся картинка */
+    transform: scale(1.05) translateY(-5px); 
+    
+    /* Усиленная тень при парении (эффект отрыва от поверхности) */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12), 
+                0 10px 20px rgba(124, 243, 230, 0.1);
+    
+    filter: brightness(1.03);
+    z-index: 10; /* Картинка перекрывает соседей, а не обрезается */
+    position: relative;
+}
+
+/* Высота для десктопов */
+@media (min-width: 1200px) {
+    .col-3 {
+        height: 380px; 
+    }
+}
+
+/* На мобильных */
+@media (max-width: 768px) {
+    .gallery-grid {
+        flex-direction: column;
+        gap: 20px;
+		 padding: 0;
+    }
+    .col-3 {
+        height: auto;
+        width: 100%;
+    }
+    .gallery-img {
+        max-height: 400px;
+		max-width: 100%;
+        object-fit: scale-down;
+        /* На мобилках лучше убрать сильное увеличение */
+    }
+    .gallery-img:hover {
+        transform: scale(1.03);
+    }
+}
+
+/* --- ТЕРМИНАЛ: MACOS DARK STYLE --- */
+.terminal {
+    background: #1c1c1c; /* Цвет фона консоли как на фото */
+    border-radius: 8px;   /* Закругленные углы окна */
+    position: relative;
+    padding: 0;
+	margin-bottom: 2rem;
+    text-align: left;
+    /* Мягкая глубокая тень вместо жесткой */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4); 
+    border: 1px solid #3c3c3c;
+    overflow: hidden;
+}
+
+/* Шапка окна macOS */
+.terminal::before {
+    content: "For developers and researchers"; /* Текст из заголовка на фото */
+    display: block;
+    height: 28px;
+    background: linear-gradient(to bottom, #4d4d4d, #3a3a3a); /* Градиент заголовка */
+    color: #b3b3b3;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
+    font-size: 14px;
+    text-align: center;
+    line-height: 28px;
+    border-bottom: 1px solid #000;
+}
+
+/* Цветные кнопки управления (Close, Minimize, Maximize) */
+.terminal::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    width: 12px;
+    height: 12px;
+    background: #ff5f56; /* Красная */
+    border-radius: 50%;
+    box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f; /* Желтая и Зеленая */
+    z-index: 2;
+}
+
+.terminal-code::before {
+    content: "[inton@trainer:~/singer-voice-tester$ ] ";
+    color: #ffffff;
+    font-weight: normal;
+}
+
+/* Курсор из картинки (белый прямоугольник) */
+.terminal-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 15px;
+    background: #ffffff;
+    margin-left: 2px;
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+
+
+
+/* Блок авторов */
+.authors-block {
+    padding: 30px;
+    border-radius: 12px;
+}
+.license-badge {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 5px 15px;
+    background: var(--primary);
+    color: #0f172a;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+
+.autor_name {
+	font-family: var(--font-main);
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+	letter-spacing: 1px;
+    padding: 1rem 1rem;
+}
+
+
+.contributing-log {
+    margin-top: -10px; /* Слегка заходит под терминал */
+    padding: 30px 25px 20px;
+    background: #1a1a1a;
+    border-radius: 0 0 15px 15px;
+    border: 1px solid #333;
+    border-top: none;
+}
+
+/* --- SAGE GRAY SECTIONS (STYLE 3) --- */
+
+/* Контейнеры секций с прогрессией цвета */
+.section-sage {
+    padding: 100px 0;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.bg-sage-1 { background: #d4dcd6; }
+.bg-sage-2 { background: #c3cdc5; }
+.bg-sage-3 { background: #b2beb5; }
+
+/* Карточки для Audience и Foundation (На базе ваших 24px) */
+.st3-card-base {
+    background: var(--card-surface);
+    border: 1px solid rgba(124, 243, 230, 0.2);
+    border-radius: 24px;
+    overflow: hidden;
+    color: var(--text-light);
+    text-align: left;
+}
+
+/* Сетки */
+.st3-audience-grid {
+    display: grid; 
+    /* minmax(300px, 1fr) заставит карточки сжиматься до 300px, 
+       а затем переносить их на новую строку */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 30px;
+}
+
+/* Стили списков (Check-icons) */
+.st3-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.st3-list li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.st3-list li i {
+    color: var(--primary);
+    margin-right: 12px;
+    margin-top: 6px;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+	.section-sage {
+    	padding: 40px 0 60px 0;
+	}
+}
+
+/* --- BLUEPRINT STEPS (HOW IT WORKS) --- */
+/* Контейнер для десктопа и планшета */
+.blueprint-container {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative; /* Нужно для позиционирования линии */
+    width: 100%;
+    margin-top: 40px;
+    padding: 0 20px;
+}
+
+/* НЕПРЕРЫВНАЯ ЛИНИЯ (Десктоп/Планшет) */
+.blueprint-container::before {
+    content: '';
+    position: absolute;
+    top: 35px; /* Половина высоты круга (70px / 2) */
+    left: 50px; /* Отступ от начала первой карточки */
+    right: 50px; /* Отступ от конца последней карточки */
+    height: 1px;
+    background: #2c3e50; /* Цвет линии */
+	opacity: 0.35; 
+    z-index: 0;
+}
+
+.blueprint-step {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    text-align: left;
+}
+
+.blueprint-circle {
+    width: 70px;
+    height: 70px;
+    background: #2c3e50; /* Темный фон круга перекрывает линию */
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    font-family: monospace;
+    font-weight: 800;
+    font-size: 1.3rem;
+    position: relative;
+    z-index: 2; /* Круг выше линии */
+    margin-left: 0; /* Выравнивание по левому краю для текста */
+}
+
+.blueprint-label {
+    display: block;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 1rem;
+    color: #2c3e50;
+    margin-bottom: 12px;
+}
+
+.blueprint-label i {
+    margin-right: 8px;
+    color: #2c3e50;
+}
+
+.blueprint-text {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #4a5a6a;
+    padding-right: 15px;
+}
+
+
+/* --- АДАПТИВНОСТЬ --- */
+
+/* Планшет: уменьшаем размеры, держим в ряд, линия остается */
+@media (max-width: 1024px) {
+    .blueprint-circle {
+        width: 50px;
+        height: 50px;
+        font-size: 1rem;
+    }
+    .blueprint-container::before {
+        top: 25px; /* Половина нового размера круга */
+    }
+    .blueprint-label {
+        font-size: 0.85rem;
+    }
+}
+
+/* Мобильный: колонки, БЕЗ ЛИНИИ, компактные отступы */
+@media (max-width: 768px) {
+    .blueprint-container {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 20px; /* Уменьшенное расстояние между карточками */
+		margin-top: 40px;
+    	padding: 0 20px;
+    }
+
+    /* СКРЫВАЕМ ЛИНИЮ */
+    .blueprint-container::before {
+        display: none !important;
+    }
+
+    .blueprint-step {
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px; /* Еще более компактный отступ */
+    }
+
+    .blueprint-circle {
+        margin-bottom: 10px; /* Уменьшен отступ под кругом */
+    }
+
+    .blueprint-text {
+        padding-right: 0;
+        max-width: 300px;
+    }
+}
+
+
+
+/* Контейнер обзора в стиле тех-паспорта */
+.overview-tech {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 40px 50px; /* Уменьшил паддинги контейнера */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    text-align: left;
+}
+
+.tech-label {
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: var(--primary-dark);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 8px; /* Меньше отступ */
+}
+
+.overview-title {
+    font-size: 2.6rem; /* Чуть уменьшил размер */
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 20px; /* Меньше отступ */
+    line-height: 1.1;
+}
+
+.overview-text p {
+    font-size: 1rem;
+    color: #4a5568;
+    margin-bottom: 0.8rem; /* Плотно сжатые абзацы */
+    line-height: 1.55;
+}
+
+/* Ссылка-бейдж стала компактнее */
+.source-link {
+    display: inline-flex;
+    align-items: center;
+    background: var(--bg-light);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #2c3e50 !important;
+    border: 1px solid rgba(0,0,0,0.08);
+    text-decoration: none;
+    margin: 5px 0 15px 0; /* Уменьшен отступ */
+}
+
+/* Рамка для скриншота БЕЗ ТЕНИ */
+.ui-frame {
+    position: relative;
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    /* box-shadow удален для минимализма */
+}
+
+/* Список режимов стал компактнее */
+.modes-container {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0; /* Уменьшен отступ блока */
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Плотно прижатые элементы */
+}
+
+.mode-item {
+    background: rgba(124, 243, 230, 0.08);
+    border-left: 3px solid var(--primary);
+    padding: 8px 16px;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+/* tech cards */
+
+/* Основная сетка карточки */
+.specs-science-grid {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Две колонки на десктопе */
+    overflow: hidden;
+    padding: 0 !important; /* Убираем внутренний отступ карты, чтобы колонки прилегали к краям */
+}
+
+/* Общие заголовки сторон */
+.side-title {
+    font-size: 0.9rem;
+    color: var(--primary);
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Левая сторона (Specs) */
+.specs-side {
+    padding: 50px 40px;
+    background: rgba(0, 0, 0, 0.2);
+    border-right: 1px solid rgba(124, 243, 230, 0.1);
+}
+
+.specs-list {
+    font-size: 0.95rem;
+    line-height: 2.2;
+    list-style: none;
+    padding: 0;
+}
+
+.specs-list li strong {
+    color: var(--primary);
+    margin-right: 5px;
+}
+
+/* Правая сторона (Science) */
+.science-side {
+    padding: 50px;
+}
+
+.science-list {
+    list-style: none;
+    padding: 0;
+}
+
+.science-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.science-list li i {
+    color: var(--primary);
+    margin-top: 5px;
+    font-size: 0.8rem;
+}
+
+/* --- ADAPTIVITY --- */
+
+/* Планшеты и Мобильные (переход в одну колонку) */
+@media (max-width: 768px) {
+    .specs-science-grid {
+        grid-template-columns: 1fr; /* Колонки друг под другом */\
+    }
+
+    .specs-side {
+        border-right: none;
+        border-bottom: 1px solid rgba(124, 243, 230, 0.1); /* Линия раздела теперь горизонтальная */
+        padding: 40px 30px;
+    }
+
+    .science-side {
+        padding: 40px 30px;
+    }
+}
